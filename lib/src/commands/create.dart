@@ -1,8 +1,6 @@
-import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
 import 'package:mason/mason.dart';
-import 'package:meta/meta.dart';
 
 // A valid Dart identifier that can be used for a package, i.e. no
 // capital letters.
