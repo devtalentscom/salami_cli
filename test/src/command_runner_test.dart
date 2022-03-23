@@ -4,35 +4,50 @@ import 'dart:async';
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
 import 'package:mason/mason.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:salami_cli/src/command_runner.dart';
 import 'package:test/test.dart';
 
 class MockLogger extends Mock implements Logger {}
 
+const expectedPrintLogs = [
+  '🚀 A Salami Command Line Interface\n'
+      '\n'
+      'Usage: salami <command> [arguments]\n'
+      '\n'
+      'Global options:\n'
+      '-h, --help       Print this usage information.\n'
+      '    --version    Print the current version.\n'
+      '\n'
+      'Available commands:\n'
+      '  help   Display help information for salami.\n'
+      '\n'
+      '''Run "salami help <command>" for more information about a command.'''
+];
+
 void main() {
+  late List<String> printLogs;
+  late Logger logger;
+  late SalamiCommandRunner commandRunner;
+
+  void Function() overridePrint(void Function() fn) {
+    return () {
+      final spec = ZoneSpecification(
+        print: (_, __, ___, String msg) {
+          printLogs.add(msg);
+        },
+      );
+      return Zone.current.fork(specification: spec).run<void>(fn);
+    };
+  }
+
+  setUp(() {
+    printLogs = [];
+    logger = MockLogger();
+    commandRunner = SalamiCommandRunner(logger: logger);
+  });
+
   group('SalamiCommandRunner', () {
-    List<String> printLogs;
-    Logger logger;
-    SalamiCommandRunner commandRunner;
-
-    void Function() overridePrint(void Function() fn) {
-      return () {
-        final spec = ZoneSpecification(
-          print: (_, __, ___, String msg) {
-            printLogs.add(msg);
-          },
-        );
-        return Zone.current.fork(specification: spec).run<void>(fn);
-      };
-    }
-
-    setUp(() {
-      printLogs = [];
-      logger = MockLogger();
-      commandRunner = SalamiCommandRunner(logger: logger);
-    });
-
     test('can be instantiated without an explicit logger instance', () {
       final commandRunner = SalamiCommandRunner();
       expect(commandRunner, isNotNull);
@@ -42,7 +57,7 @@ void main() {
       test('handles FormatException', () async {
         const exception = FormatException('oops!');
         var isFirstInvocation = true;
-        when(logger.info(any)).thenAnswer((_) {
+        when(() => logger.info(any())).thenAnswer((_) {
           if (isFirstInvocation) {
             isFirstInvocation = false;
             throw exception;
@@ -50,14 +65,14 @@ void main() {
         });
         final result = await commandRunner.run(['--version']);
         expect(result, equals(ExitCode.usage.code));
-        verify(logger.err(exception.message)).called(1);
-        verify(logger.info(commandRunner.usage)).called(1);
+        verify(() => logger.err(exception.message)).called(1);
+        verify(() => logger.info(commandRunner.usage)).called(1);
       });
 
       test('handles UsageException', () async {
         final exception = UsageException('oops!', commandRunner.usage);
         var isFirstInvocation = true;
-        when(logger.info(any)).thenAnswer((_) {
+        when(() => logger.info(any())).thenAnswer((_) {
           if (isFirstInvocation) {
             isFirstInvocation = false;
             throw exception;
@@ -65,27 +80,13 @@ void main() {
         });
         final result = await commandRunner.run(['--version']);
         expect(result, equals(ExitCode.usage.code));
-        verify(logger.err(exception.message)).called(1);
-        verify(logger.info(commandRunner.usage)).called(1);
+        verify(() => logger.err(exception.message)).called(1);
+        verify(() => logger.info(commandRunner.usage)).called(1);
       });
 
       test(
         'handles no command',
         overridePrint(() async {
-          const expectedPrintLogs = [
-            '🚀 A Salami Commandline Interface\n'
-                '\n'
-                'Usage: salami <command> [arguments]\n'
-                '\n'
-                'Global options:\n'
-                '-h, --help       Print this usage information.\n'
-                '    --version    Print the current version.\n'
-                '\n'
-                'Available commands:\n'
-                '  help   Display help information for salami.\n'
-                '\n'
-                '''Run "salami help <command>" for more information about a command.'''
-          ];
           final result = await commandRunner.run([]);
           expect(printLogs, equals(expectedPrintLogs));
           expect(result, equals(ExitCode.success.code));
@@ -96,20 +97,6 @@ void main() {
         test(
           'outputs usage',
           overridePrint(() async {
-            const expectedPrintLogs = [
-              '🚀 A Salami Commandline Interface\n'
-                  '\n'
-                  'Usage: salami <command> [arguments]\n'
-                  '\n'
-                  'Global options:\n'
-                  '-h, --help       Print this usage information.\n'
-                  '    --version    Print the current version.\n'
-                  '\n'
-                  'Available commands:\n'
-                  '  help   Display help information for salami.\n'
-                  '\n'
-                  '''Run "salami help <command>" for more information about a command.'''
-            ];
             final result = await commandRunner.run(['--help']);
             expect(printLogs, equals(expectedPrintLogs));
             expect(result, equals(ExitCode.success.code));

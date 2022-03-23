@@ -10,9 +10,9 @@ import 'package:salami_cli/src/version.dart';
 /// {@endtemplate}
 class SalamiCommandRunner extends CommandRunner<int> {
   /// {@macro salami_command_runner}
-  SalamiCommandRunner({Logger logger})
+  SalamiCommandRunner({Logger? logger})
       : _logger = logger ?? Logger(),
-        super('salami', '🚀 A Salami Commandline Interface') {
+        super('salami', '🚀 A Salami Command Line Interface') {
     argParser.addFlag(
       'version',
       negatable: false,
@@ -43,9 +43,9 @@ class SalamiCommandRunner extends CommandRunner<int> {
   }
 
   @override
-  Future<int> runCommand(ArgResults topLevelResults) async {
+  Future<int?> runCommand(ArgResults topLevelResults) async {
     if (topLevelResults['version'] == true) {
-      _logger.info('salami version: $packageVersion');
+      _logger.info('very_good version: $packageVersion');
       return ExitCode.success.code;
     }
     return super.runCommand(topLevelResults);
