@@ -6,7 +6,6 @@ import 'package:io/io.dart';
 import 'package:mason/mason.dart';
 import 'package:mockito/mockito.dart';
 import 'package:salami_cli/src/command_runner.dart';
-import 'package:salami_cli/src/version.dart';
 import 'package:test/test.dart';
 
 class MockLogger extends Mock implements Logger {}
