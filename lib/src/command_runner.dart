@@ -18,7 +18,7 @@ class SalamiCommandRunner extends CommandRunner<int> {
       negatable: false,
       help: 'Print the current version.',
     );
-    addCommand(CreateCommand());
+    addCommand(CreateCommand(logger: logger));
   }
 
   final Logger _logger;

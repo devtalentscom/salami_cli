@@ -20,7 +20,7 @@ const expectedPrintLogs = [
       '    --version    Print the current version.\n'
       '\n'
       'Available commands:\n'
-      '  help   Display help information for salami.\n'
+      '  create   Creates a new very good flutter application in seconds.\n'
       '\n'
       '''Run "salami help <command>" for more information about a command.'''
 ];
