@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:args/command_runner.dart';
-import 'package:io/io.dart';
 import 'package:mason/mason.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:salami_cli/src/command_runner.dart';
