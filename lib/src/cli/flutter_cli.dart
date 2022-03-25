@@ -115,7 +115,6 @@ class Flutter {
     String cwd = '.',
     bool recursive = false,
     bool collectCoverage = false,
-    bool optimizePerformance = false,
     double? minCoverage,
     String? excludeFromCoverage,
     List<String>? arguments,
@@ -139,32 +138,11 @@ class Flutter {
           'Running "flutter test" in ${p.dirname(workingDirectory)}...\n',
         );
 
-        if (optimizePerformance) {
-          final optimizationDone = progress?.call('Optimizing tests');
-          try {
-            final generator = await MasonGenerator.fromBundle(testRunnerBundle);
-            var vars = <String, dynamic>{'package-root': workingDirectory};
-            await generator.hooks.preGen(
-              vars: vars,
-              onVarsChanged: (v) => vars = v,
-              workingDirectory: workingDirectory,
-            );
-            await generator.generate(
-              target,
-              vars: vars,
-              fileConflictResolution: FileConflictResolution.overwrite,
-            );
-          } finally {
-            optimizationDone?.call();
-          }
-        }
-
         return _flutterTest(
           cwd: cwd,
           collectCoverage: collectCoverage,
           arguments: [
             ...?arguments,
-            if (optimizePerformance) p.join('test', '.test_runner.dart')
           ],
           stdout: stdout ?? noop,
           stderr: stderr ?? noop,
@@ -174,9 +152,6 @@ class Flutter {
       recursive: recursive,
     );
 
-    if (optimizePerformance) {
-      File(p.join(cwd, 'test', '.test_runner.dart')).delete().ignore();
-    }
     if (collectCoverage) await lcovFile.ensureCreated();
     if (minCoverage != null) {
       final records = await Parser.parse(lcovPath);

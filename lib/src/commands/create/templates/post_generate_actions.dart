@@ -2,21 +2,6 @@ import 'package:mason/mason.dart';
 import 'package:salami_cli/src/cli/cli.dart';
 import 'package:universal_io/io.dart';
 
-/// Runs `flutter pub get` in the [outputDir].
-Future<void> installDartPackages(
-  Logger logger,
-  Directory outputDir,
-) async {
-  final isFlutterInstalled = await Flutter.installed();
-  if (isFlutterInstalled) {
-    final installDependenciesDone = logger.progress(
-      'Running "flutter pub get" in ${outputDir.path}',
-    );
-    await Flutter.pubGet(cwd: outputDir.path);
-    installDependenciesDone();
-  }
-}
-
 /// Runs `flutter packages get` in the [outputDir].
 Future<void> installFlutterPackages(
   Logger logger,

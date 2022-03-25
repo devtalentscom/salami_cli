@@ -19,9 +19,9 @@ const expectedPrintLogs = [
       '    --version    Print the current version.\n'
       '\n'
       'Available commands:\n'
-      '  create   Creates a new very good flutter application in seconds.\n'
+      '  create   Creates a new flutter application in seconds.\n'
       '\n'
-      '''Run "salami help <command>" for more information about a command.'''
+      'Run "salami help <command>" for more information about a command.'
 ];
 
 void main() {
