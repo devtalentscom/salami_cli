@@ -33,3 +33,17 @@ Future<void> applyDartFixes(
     applyFixesDone();
   }
 }
+
+/// Runs `flutter packages get`.
+Future<void> installMelos(
+  Logger logger,
+) async {
+  final isMelosInstalled = await Melos.installed();
+  if (!isMelosInstalled) {
+    final installMelosDone = logger.progress(
+      'Running "dart pub global activate melos"',
+    );
+    await Melos.activate();
+    installMelosDone();
+  }
+}
