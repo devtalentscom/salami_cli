@@ -176,8 +176,8 @@ void main() {
         );
       });
 
-      test('completes when there is a pubspec.yaml', () {
-        expectLater(Flutter.packagesGet(), completes);
+      test('completes when there is a pubspec.yaml', () async {
+        await expectLater(Flutter.packagesGet(), completes);
       });
 
       test('throws when there is no pubspec.yaml (recursive)', () {

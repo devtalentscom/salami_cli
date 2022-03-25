@@ -10,8 +10,8 @@ void main() {
     });
 
     group('.activate', () {
-      test('completes normally', () {
-        expectLater(Melos.activate(), completes);
+      test('completes normally', () async {
+        await expectLater(Melos.activate(), completes);
       });
     });
   });
