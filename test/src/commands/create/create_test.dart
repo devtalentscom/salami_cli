@@ -148,7 +148,7 @@ void main() {
       expect(result, equals(ExitCode.success.code));
       verify(() => logger.progress('Bootstrapping')).called(1);
       expect(
-        progressLogs.elementAt(0),
+        progressLogs.first,
         equals('Generated ${generatedFiles.length} file(s)'),
       );
       verify(
@@ -233,8 +233,8 @@ void main() {
           expect(result, equals(ExitCode.success.code));
           verify(() => logger.progress('Bootstrapping')).called(1);
           expect(
-            progressLogs,
-            equals(['Generated ${generatedFiles.length} file(s)']),
+            progressLogs.first,
+            equals('Generated ${generatedFiles.length} file(s)'),
           );
           verify(
             () => logger.progress(getPackagesMsg),
