@@ -16,22 +16,14 @@ class Melos {
   static Future<void> activate({
     String cwd = '.',
     bool recursive = false,
-    void Function([String?]) Function(String message)? progress,
   }) async {
     await _runCommand(
       cmd: (cwd) async {
-        final installDone = progress?.call(
-          'Running "dart pub global activate melos"',
+        await _Cmd.run(
+          'dart',
+          ['pub', 'global', 'activate', 'melos'],
+          workingDirectory: cwd,
         );
-        try {
-          await _Cmd.run(
-            'dart',
-            ['pub', 'global', 'activate', 'melos'],
-            workingDirectory: cwd,
-          );
-        } finally {
-          installDone?.call();
-        }
       },
       cwd: cwd,
       recursive: recursive,

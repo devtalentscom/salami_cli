@@ -47,8 +47,6 @@ Future<void> installMelos(
       'Running "dart pub global activate melos"',
     );
     await Melos.activate();
-    installMelosDone();
-  } else {
-    installMelosDone('Melos already activated');
   }
+  installMelosDone('Melos activated');
 }

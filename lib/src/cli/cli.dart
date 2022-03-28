@@ -1,11 +1,7 @@
 import 'dart:async';
 
-import 'package:glob/glob.dart';
-import 'package:lcov_parser/lcov_parser.dart';
-import 'package:mason/mason.dart';
 import 'package:path/path.dart' as p;
 import 'package:universal_io/io.dart';
-import 'package:very_good_test_runner/very_good_test_runner.dart';
 
 part 'dart_cli.dart';
 part 'flutter_cli.dart';

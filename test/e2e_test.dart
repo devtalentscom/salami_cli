@@ -63,23 +63,24 @@ void main() {
         expect(analyzeResult.stdout, contains('No issues found!'));
 
         final testResult = await Process.run(
-          'melos',
-          ['workflow_test'],
+          'flutter',
+          ['test', '--no-pub', '--coverage'],
           workingDirectory: directory.path,
           runInShell: true,
         );
         expect(testResult.exitCode, equals(ExitCode.success.code));
+        expect(testResult.stderr, isEmpty);
         expect(testResult.stdout, contains('All tests passed!'));
 
         final testCoverageResult = await Process.run(
-          'coverde',
-          ['check', '100', '-i', 'coverage/filtered.lcov.info'],
+          'genhtml',
+          ['coverage/lcov.info', '-o', 'coverage'],
           workingDirectory: directory.path,
           runInShell: true,
         );
         expect(testCoverageResult.exitCode, equals(ExitCode.success.code));
         expect(testCoverageResult.stderr, isEmpty);
-        expect(testCoverageResult.stdout, contains('100.00%'));
+        expect(testCoverageResult.stdout, contains('lines......: 100.0%'));
       });
     },
     timeout: const Timeout(Duration(seconds: 180)),

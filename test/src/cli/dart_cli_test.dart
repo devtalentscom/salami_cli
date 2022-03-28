@@ -13,6 +13,9 @@ void main() {
       test('completes normally', () {
         expectLater(Dart.applyFixes(), completes);
       });
+      test('completes normally with recursive', () {
+        expectLater(Dart.applyFixes(recursive: true), completes);
+      });
     });
   });
 }

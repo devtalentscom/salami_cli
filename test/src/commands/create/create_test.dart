@@ -148,12 +148,17 @@ void main() {
       expect(result, equals(ExitCode.success.code));
       verify(() => logger.progress('Bootstrapping')).called(1);
       expect(
-        progressLogs,
-        equals(['Generated ${generatedFiles.length} file(s)']),
+        progressLogs.elementAt(0),
+        equals('Generated ${generatedFiles.length} file(s)'),
       );
       verify(
         () => logger.progress('Running "flutter packages get" in .tmp'),
       ).called(1);
+      expect(
+        progressLogs.elementAt(1),
+        equals('Melos activated'),
+      );
+
       verify(() => logger.alert('Created a Salami App!')).called(1);
       /* verify(
         () => generator.generate(
