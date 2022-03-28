@@ -38,12 +38,17 @@ Future<void> applyDartFixes(
 Future<void> installMelos(
   Logger logger,
 ) async {
+  final installMelosDone = logger.progress(
+    'Checking if melos is activated',
+  );
   final isMelosInstalled = await Melos.installed();
   if (!isMelosInstalled) {
-    final installMelosDone = logger.progress(
+    logger.progress(
       'Running "dart pub global activate melos"',
     );
     await Melos.activate();
     installMelosDone();
+  } else {
+    installMelosDone('Melos already activated');
   }
 }

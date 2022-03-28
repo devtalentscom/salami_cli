@@ -82,6 +82,6 @@ void main() {
         expect(testCoverageResult.stdout, contains('100.00%'));
       });
     },
-    timeout: const Timeout(Duration(seconds: 150)),
+    timeout: const Timeout(Duration(seconds: 180)),
   );
 }

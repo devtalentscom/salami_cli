@@ -13,7 +13,6 @@ abstract class Template {
     required this.bundle,
     required this.help,
   });
-  
 
   /// The name associated with this template.
   final String name;
