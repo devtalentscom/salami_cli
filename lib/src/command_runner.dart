@@ -1,8 +1,7 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
-import 'package:io/io.dart';
-import 'package:mason/mason.dart';
-
+import 'package:mason/mason.dart' hide packageVersion;
+import 'package:salami_cli/src/commands/commands.dart';
 import 'package:salami_cli/src/version.dart';
 
 /// {@template salami_command_runner}
@@ -18,6 +17,7 @@ class SalamiCommandRunner extends CommandRunner<int> {
       negatable: false,
       help: 'Print the current version.',
     );
+    addCommand(CreateCommand(logger: logger));
   }
 
   final Logger _logger;
