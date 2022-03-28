@@ -74,7 +74,7 @@ void main() {
 
         final testCoverageResult = await Process.run(
           'genhtml',
-          ['coverage/lcov.info', '-o', 'coverage'],
+          ['coverage/filtered.lcov.info', '-o', 'coverage'],
           workingDirectory: directory.path,
           runInShell: true,
         );
