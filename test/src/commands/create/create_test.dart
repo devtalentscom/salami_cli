@@ -156,6 +156,10 @@ void main() {
       ).called(1);
       expect(
         progressLogs.elementAt(1),
+        equals('Coverde activated'),
+      );
+      expect(
+        progressLogs.elementAt(2),
         equals('Melos activated'),
       );
 

@@ -6,7 +6,7 @@ import 'package:universal_io/io.dart';
 Future<void> installFlutterPackages(
   Logger logger,
   Directory outputDir, {
-  bool recursive = false,
+  bool recursive = true,
 }) async {
   final isFlutterInstalled = await Flutter.installed();
   if (isFlutterInstalled) {
@@ -34,7 +34,7 @@ Future<void> applyDartFixes(
   }
 }
 
-/// Runs `flutter packages get`.
+/// Runs `dart pub global activate melos`.
 Future<void> installMelos(
   Logger logger,
 ) async {
@@ -49,4 +49,21 @@ Future<void> installMelos(
     await Melos.activate();
   }
   installMelosDone('Melos activated');
+}
+
+/// Runs `dart pub global activate coverde`.
+Future<void> installCoverde(
+  Logger logger,
+) async {
+  final installCoverdeDone = logger.progress(
+    'Checking if melos is activated',
+  );
+  final isCoverdeInstalled = await Coverde.installed();
+  if (!isCoverdeInstalled) {
+    logger.progress(
+      'Running "dart pub global activate coverde"',
+    );
+    await Coverde.activate();
+  }
+  installCoverdeDone('Coverde activated');
 }

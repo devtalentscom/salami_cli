@@ -10,7 +10,7 @@ See the complete list of commands and usage information.
 
 ```sh
 🚀 A Salami Command Line Interface
-Usage: very_good <command> [arguments]
+Usage: salami <command> [arguments]
 Global options:
 -h, --help       Print this usage information.
     --version    Print the current version.
