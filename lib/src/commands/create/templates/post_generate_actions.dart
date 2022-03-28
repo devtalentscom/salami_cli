@@ -6,7 +6,7 @@ import 'package:universal_io/io.dart';
 Future<void> installFlutterPackages(
   Logger logger,
   Directory outputDir, {
-  bool recursive = false,
+  bool recursive = true,
 }) async {
   final isFlutterInstalled = await Flutter.installed();
   if (isFlutterInstalled) {
@@ -61,7 +61,7 @@ Future<void> installCoverde(
   final isCoverdeInstalled = await Coverde.installed();
   if (!isCoverdeInstalled) {
     logger.progress(
-      'Running "dart pub global activate Coverde"',
+      'Running "dart pub global activate coverde"',
     );
     await Coverde.activate();
   }

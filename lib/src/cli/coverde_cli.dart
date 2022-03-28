@@ -13,20 +13,10 @@ class Coverde {
   }
 
   /// Install coverde (`dart pub global activate coverde`).
-  static Future<void> activate({
-    String cwd = '.',
-    bool recursive = false,
-  }) async {
-    await _runCommand(
-      cmd: (cwd) async {
-        await _Cmd.run(
-          'dart',
-          ['pub', 'global', 'activate', 'coverde'],
-          workingDirectory: cwd,
-        );
-      },
-      cwd: cwd,
-      recursive: recursive,
+  static Future<void> activate() async {
+    await _Cmd.run(
+      'dart',
+      ['pub', 'global', 'activate', 'coverde'],
     );
   }
 }
