@@ -45,7 +45,7 @@ class SalamiCommandRunner extends CommandRunner<int> {
   @override
   Future<int?> runCommand(ArgResults topLevelResults) async {
     if (topLevelResults['version'] == true) {
-      _logger.info('very_good version: $packageVersion');
+      _logger.info('salami version: $packageVersion');
       return ExitCode.success.code;
     }
     return super.runCommand(topLevelResults);

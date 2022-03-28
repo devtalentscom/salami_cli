@@ -18,6 +18,7 @@ class SalamiCoreTemplate extends Template {
   Future<void> onGenerateComplete(Logger logger, Directory outputDir) async {
     await installFlutterPackages(logger, outputDir);
     await applyDartFixes(logger, outputDir);
+    await installCoverde(logger);
     await installMelos(logger);
     _logSummary(logger);
   }

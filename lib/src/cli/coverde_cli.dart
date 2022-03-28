@@ -1,18 +1,18 @@
 part of 'cli.dart';
 
-/// Melos CLI
-class Melos {
-  /// Determine whether melos is installed.
+/// Coverde CLI
+class Coverde {
+  /// Determine whether coverde is installed.
   static Future<bool> installed() async {
     try {
-      await _Cmd.run('melos', ['--help']);
+      await _Cmd.run('coverde', ['--help']);
       return true;
     } catch (_) {
       return false;
     }
   }
 
-  /// Install melos (`dart pub global activate melos`).
+  /// Install coverde (`dart pub global activate coverde`).
   static Future<void> activate({
     String cwd = '.',
     bool recursive = false,
@@ -21,7 +21,7 @@ class Melos {
       cmd: (cwd) async {
         await _Cmd.run(
           'dart',
-          ['pub', 'global', 'activate', 'melos'],
+          ['pub', 'global', 'activate', 'coverde'],
           workingDirectory: cwd,
         );
       },
