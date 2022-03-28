@@ -69,7 +69,6 @@ void main() {
           runInShell: true,
         );
         expect(testResult.exitCode, equals(ExitCode.success.code));
-        expect(testResult.stderr, isEmpty);
         expect(testResult.stdout, contains('All tests passed!'));
 
         final testCoverageResult = await Process.run(
@@ -80,7 +79,7 @@ void main() {
         );
         expect(testCoverageResult.exitCode, equals(ExitCode.success.code));
         expect(testCoverageResult.stderr, isEmpty);
-        expect(testCoverageResult.stdout, contains('100.0%'));
+        expect(testCoverageResult.stdout, contains('100.00% - 114/114'));
       });
     },
     timeout: const Timeout(Duration(seconds: 180)),
