@@ -20,6 +20,7 @@ const expectedPrintLogs = [
       '\n'
       'Available commands:\n'
       '  create   Creates a new flutter application in seconds.\n'
+      '  init     Install usefull dart cli tools\n'
       '\n'
       'Run "salami help <command>" for more information about a command.'
 ];

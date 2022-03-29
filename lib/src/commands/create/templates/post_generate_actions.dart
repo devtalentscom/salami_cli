@@ -56,7 +56,7 @@ Future<void> installCoverde(
   Logger logger,
 ) async {
   final installCoverdeDone = logger.progress(
-    'Checking if melos is activated',
+    'Checking if coverde is activated',
   );
   final isCoverdeInstalled = await Coverde.installed();
   if (!isCoverdeInstalled) {
