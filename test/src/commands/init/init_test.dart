@@ -100,6 +100,10 @@ void main() {
       );
       expect(
         progressLogs.elementAt(2),
+        equals('Fluttergen activated'),
+      );
+      expect(
+        progressLogs.elementAt(3),
         equals('Setup finished'),
       );
 
