@@ -103,7 +103,7 @@ void main() {
         equals('Setup finished'),
       );
 
-      verify(() => logger.alert("You're ready to go!")).called(1);
+      verify(() => logger.alert("You're ready to go! ⚡")).called(1);
     });
   });
 }

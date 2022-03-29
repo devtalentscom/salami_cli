@@ -63,7 +63,7 @@ class InitCommand extends Command<int> {
     installing('Setup finished');
     _logger
       ..info('\n')
-      ..alert("You're ready to go!")
+      ..alert("You're ready to go! ⚡")
       ..info('\n');
 
     return ExitCode.success.code;
