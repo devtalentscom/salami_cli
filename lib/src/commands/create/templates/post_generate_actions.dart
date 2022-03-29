@@ -67,3 +67,20 @@ Future<void> installCoverde(
   }
   installCoverdeDone('Coverde activated');
 }
+
+/// Runs `dart pub global activate flutter_gen`.
+Future<void> installFluttergen(
+  Logger logger,
+) async {
+  final installFluttergenDone = logger.progress(
+    'Checking if fluttergen is activated',
+  );
+  final isFluttergenInstalled = await Fluttergen.installed();
+  if (!isFluttergenInstalled) {
+    logger.progress(
+      'Running "dart pub global activate flutter_gen"',
+    );
+    await Fluttergen.activate();
+  }
+  installFluttergenDone('Fluttergen activated');
+}

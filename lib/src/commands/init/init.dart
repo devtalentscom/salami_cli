@@ -48,16 +48,17 @@ class InitCommand extends Command<int> {
   Future<int> run() async {
     final coverde = _argResults['coverde'] as String? ?? 'true';
     final melos = _argResults['melos'] as String? ?? 'true';
-    // ignore: unused_local_variable
     final fluttergen = _argResults['fluttergen'] as String? ?? 'true';
     final installing = _logger.progress('Installing');
 
     if (coverde.toBool()) {
       await installCoverde(_logger);
     }
-
     if (melos.toBool()) {
       await installMelos(_logger);
+    }
+    if (fluttergen.toBool()) {
+      await installFluttergen(_logger);
     }
 
     installing('Setup finished');
