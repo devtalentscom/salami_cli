@@ -16,6 +16,7 @@ Global options:
     --version    Print the current version.
 Available commands:
   create   Creates a new salami flutter application in seconds.
+  init     Install usefull dart cli tools
 Run "salami help <command>" for more information about a command.
 ```
 

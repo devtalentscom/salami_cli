@@ -56,7 +56,7 @@ Future<void> installCoverde(
   Logger logger,
 ) async {
   final installCoverdeDone = logger.progress(
-    'Checking if melos is activated',
+    'Checking if coverde is activated',
   );
   final isCoverdeInstalled = await Coverde.installed();
   if (!isCoverdeInstalled) {
@@ -66,4 +66,21 @@ Future<void> installCoverde(
     await Coverde.activate();
   }
   installCoverdeDone('Coverde activated');
+}
+
+/// Runs `dart pub global activate flutter_gen`.
+Future<void> installFluttergen(
+  Logger logger,
+) async {
+  final installFluttergenDone = logger.progress(
+    'Checking if fluttergen is activated',
+  );
+  final isFluttergenInstalled = await Fluttergen.installed();
+  if (!isFluttergenInstalled) {
+    logger.progress(
+      'Running "dart pub global activate flutter_gen"',
+    );
+    await Fluttergen.activate();
+  }
+  installFluttergenDone('Fluttergen activated');
 }

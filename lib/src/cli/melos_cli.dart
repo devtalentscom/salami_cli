@@ -7,6 +7,11 @@ class Melos {
     try {
       await _Cmd.run('melos', ['--help']);
       return true;
+    } on ProcessException catch (exception) {
+      if (exception.message.contains('melos.yaml')) {
+        return true;
+      }
+      return false;
     } catch (_) {
       return false;
     }

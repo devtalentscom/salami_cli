@@ -51,7 +51,7 @@ void main() {
     late Logger logger;
 
     final generatedFiles = List.filled(
-      329,
+      120,
       const GeneratedFile.created(path: ''),
     );
 

@@ -7,6 +7,7 @@ part 'dart_cli.dart';
 part 'flutter_cli.dart';
 part 'melos_cli.dart';
 part 'coverde_cli.dart';
+part 'fluttergen_cli.dart';
 
 /// Abstraction for running commands via command-line.
 class _Cmd {
