@@ -42,7 +42,7 @@ class FakeDirectoryGeneratorTarget extends Fake
 class FakeLogger extends Fake implements Logger {}
 
 void main() {
-  group('create', () {
+  group('init', () {
     late List<String> progressLogs;
     late Logger logger;
 
