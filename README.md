@@ -6,6 +6,16 @@ Developed with 💙 by [DevTalents](dev_talents_link)
 [![License: MIT][license]](license_link)
 [![style: very_good_analysis_link][badge]][badge_link]
 
+A Very Good Command Line Interface for Dart.
+
+## Installing
+
+```sh
+dart pub global activate salami_cli
+```
+
+## Commands
+
 See the complete list of commands and usage information.
 
 ```sh
@@ -18,6 +28,20 @@ Available commands:
   create   Creates a new salami flutter application in seconds.
   init     Install usefull dart cli tools
 Run "salami help <command>" for more information about a command.
+```
+
+#### Usage
+
+```sh
+# Create a new Flutter app in current directory
+salami create .
+
+# Create a new Flutter app in passed directory
+salami create ./foo/bar
+
+# Install all cli tools used in salami core lika coverde, melos etc.
+salami init
+
 ```
 
 ---
