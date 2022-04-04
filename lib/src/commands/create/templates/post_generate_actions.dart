@@ -6,7 +6,7 @@ import 'package:universal_io/io.dart';
 Future<void> installFlutterPackages(
   Logger logger,
   Directory outputDir, {
-  bool recursive = true,
+  bool recursive = false,
 }) async {
   final isFlutterInstalled = await Flutter.installed();
   if (isFlutterInstalled) {

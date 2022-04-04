@@ -149,10 +149,18 @@ void main() {
       verify(
         () => logger.progress('Running "flutter packages get" in .tmp'),
       ).called(1);
+
+      verify(
+        () => logger.progress('Running "dart pub global activate coverde"'),
+      ).called(1);
       expect(
         progressLogs.elementAt(1),
         equals('Coverde activated'),
       );
+
+      verify(
+        () => logger.progress('Running "dart pub global activate melos"'),
+      ).called(1);
       expect(
         progressLogs.elementAt(2),
         equals('Melos activated'),
