@@ -19,6 +19,7 @@ class SalamiCommandRunner extends CommandRunner<int> {
     );
     addCommand(CreateCommand(logger: logger));
     addCommand(InitCommand(logger: logger));
+    addCommand(SpitCommand(logger: logger));
   }
 
   final Logger _logger;

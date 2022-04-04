@@ -6,7 +6,7 @@ Developed with 💙 by [DevTalents](dev_talents_link)
 [![License: MIT][license]](license_link)
 [![style: very_good_analysis_link][badge]][badge_link]
 
-A Very Good Command Line Interface for Dart.
+A Salami Command Line Interface for Dart.
 
 ## Installing
 
