@@ -24,11 +24,9 @@ const expectedUsage = [
   'Create a new flutter component in seconds.\n'
       '\n'
       'Usage: salami spit [arguments]\n'
-      '-h, --help      Print this usage information.\n'
-      '-o, --output    Output of created component\n'
-      '                (defaults to ".")\n'
-      '-n, --name      Name of crated page\n'
-      '                (defaults to "salami")\n'
+      '-h, --help    Print this usage information.\n'
+      '-n, --name    Name of created page\n'
+      '              (defaults to "salami")\n'
       '\n'
       'Run "salami help" to see global options.'
 ];
@@ -149,9 +147,6 @@ void main() {
         progressLogs.first,
         equals('Generated ${generatedFiles.length} file(s)'),
       );
-      verify(
-        () => logger.progress('Running "flutter packages get" in .tmp'),
-      ).called(1);
 
       verify(() => logger.alert('Created a Salami Page!')).called(1);
     });
@@ -159,7 +154,6 @@ void main() {
     group('template', () {
       group('valid template names', () {
         Future<void> expectValidTemplateName({
-          required String getPackagesMsg,
           required String templateName,
           required MasonBundle expectedBundle,
           required String expectedLogSummary,
@@ -196,15 +190,12 @@ void main() {
             progressLogs.first,
             equals('Generated ${generatedFiles.length} file(s)'),
           );
-          verify(
-            () => logger.progress(getPackagesMsg),
-          ).called(1);
+
           verify(() => logger.alert(expectedLogSummary)).called(1);
         }
 
         test('page template', () async {
           await expectValidTemplateName(
-            getPackagesMsg: 'Running "flutter packages get" in .tmp',
             templateName: 'page',
             expectedBundle: salamiPageBundle,
             expectedLogSummary: 'Created a Salami Page!',

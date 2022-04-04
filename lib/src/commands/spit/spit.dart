@@ -25,7 +25,7 @@ class SpitCommand extends Command<int> {
     argParser.addOption(
       'name',
       abbr: 'n',
-      help: 'Name of crated page',
+      help: 'Name of created page',
       defaultsTo: 'salami',
     );
   }

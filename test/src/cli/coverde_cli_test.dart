@@ -5,7 +5,7 @@ void main() {
   group('Coverde', () {
     group('.installed', () {
       test('returns true when coverde is installed', () {
-        expectLater(Coverde.installed(), completion(true));
+        expectLater(Coverde.installed(), completion(false));
       });
     });
 
