@@ -48,7 +48,7 @@ class SpitCommand extends Command<int> {
   @override
   Future<int> run() async {
     final outputDirectory = Directory('.');
-    final name = _argResults['name'] as String;
+    final name = (_argResults['name'] as String?) ?? 'salami';
     final template = _template;
     final generateDone = _logger.progress('Bootstrapping');
     final generator = await _generate(template.bundle);

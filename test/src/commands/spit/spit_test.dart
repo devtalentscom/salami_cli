@@ -124,7 +124,7 @@ void main() {
     test('completes successfully with correct output', () async {
       final argResults = MockArgResults();
       final generator = MockMasonGenerator();
-      final command = CreateCommand(
+      final command = SpitCommand(
         logger: logger,
         generator: (_) async => generator,
       )..argResultOverrides = argResults;
@@ -137,7 +137,6 @@ void main() {
           logger: any(named: 'logger'),
         ),
       ).thenAnswer((_) async {
-        File(p.join('.tmp', 'pubspec.yaml')).writeAsStringSync(pubspec);
         return generatedFiles;
       });
       final result = await command.run();
