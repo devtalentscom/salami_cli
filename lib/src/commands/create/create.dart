@@ -12,7 +12,7 @@ final _templates = [
 
 final _defaultTemplate = _templates.first;
 
-final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
+//final RegExp _identifierRegExp = RegExp('[a-z_][a-z0-9_]*');
 
 /// A method which returns a [Future<MasonGenerator>] given a [MasonBundle].
 typedef GeneratorBuilder = Future<MasonGenerator> Function(MasonBundle);
@@ -27,7 +27,7 @@ class CreateCommand extends Command<int> {
     GeneratorBuilder? generator,
   })  : _logger = logger ?? Logger(),
         _generate = generator ?? MasonGenerator.fromBundle {
-    argParser
+    /* argParser
       ..addOption(
         'project-name',
         help: 'The project name for this new Flutter project. '
@@ -47,7 +47,7 @@ class CreateCommand extends Command<int> {
             element.name: element.help,
           },
         ),
-      );
+      ); */
   }
 
   final Logger _logger;
@@ -68,13 +68,13 @@ class CreateCommand extends Command<int> {
   @override
   Future<int> run() async {
     final outputDirectory = _outputDirectory;
-    final projectName = _projectName;
+    //final projectName = _projectName;
     final template = _template;
     final generateDone = _logger.progress('Bootstrapping');
     final generator = await _generate(template.bundle);
     final fileCount = await generator.generate(
       DirectoryGeneratorTarget(outputDirectory),
-      vars: <String, dynamic>{'project_name': projectName},
+      //vars: <String, dynamic>{'project_name': projectName},
     );
     generateDone('Generated ${fileCount.length} file(s)');
 
@@ -87,7 +87,7 @@ class CreateCommand extends Command<int> {
   ///
   /// Uses the current directory path name
   /// if the `--project-name` option is not explicitly specified.
-  String get _projectName {
+/*   String get _projectName {
     final projectName = _argResults['project-name'] as String;
     _validateProjectName(projectName);
     return projectName;
@@ -102,7 +102,7 @@ class CreateCommand extends Command<int> {
         usage,
       );
     }
-  }
+  } */
 
   Directory get _outputDirectory {
     final rest = _argResults.rest;
@@ -123,18 +123,19 @@ class CreateCommand extends Command<int> {
     }
   }
 
-  /// Whether [name] is a valid Dart package name.
+/*   /// Whether [name] is a valid Dart package name.
   bool _isValidPackageName(String name) {
     final match = _identifierRegExp.matchAsPrefix(name);
     return match != null && match.end == name.length;
-  }
+  } */
 
   Template get _template {
-    final templateName = _argResults['template'] as String?;
+    return _defaultTemplate;
+    /* final templateName = _argResults['template'] as String?;
 
     return _templates.firstWhere(
       (element) => element.name == templateName,
       orElse: () => _defaultTemplate,
-    );
+    ); */
   }
 }
