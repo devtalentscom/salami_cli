@@ -176,10 +176,6 @@ void main() {
           when(
             () => argResults['name'] as String?,
           ).thenReturn('salami');
-          when(
-            () => argResults['output'] as String?,
-          ).thenReturn('.tmp');
-
           when(() => argResults.rest).thenReturn([templateName]);
           when(() => generator.id).thenReturn('generator_id');
           when(() => generator.description).thenReturn('generator description');

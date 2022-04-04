@@ -16,7 +16,6 @@ class SalamiPageTemplate extends Template {
 
   @override
   Future<void> onGenerateComplete(Logger logger, Directory outputDir) async {
-    await installFlutterPackages(logger, outputDir);
     _logSummary(logger);
   }
 

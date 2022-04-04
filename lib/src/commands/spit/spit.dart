@@ -22,19 +22,12 @@ class SpitCommand extends Command<int> {
     GeneratorBuilder? generator,
   })  : _logger = logger ?? Logger(),
         _generate = generator ?? MasonGenerator.fromBundle {
-    argParser
-      ..addOption(
-        'output',
-        abbr: 'o',
-        help: 'Output of created component',
-        defaultsTo: '.',
-      )
-      ..addOption(
-        'name',
-        abbr: 'n',
-        help: 'Name of crated page',
-        defaultsTo: 'salami',
-      );
+    argParser.addOption(
+      'name',
+      abbr: 'n',
+      help: 'Name of crated page',
+      defaultsTo: 'salami',
+    );
   }
 
   final Logger _logger;
@@ -54,7 +47,7 @@ class SpitCommand extends Command<int> {
 
   @override
   Future<int> run() async {
-    final outputDirectory = Directory(_argResults['output'] as String);
+    final outputDirectory = Directory('.');
     final name = _argResults['name'] as String;
     final template = _template;
     final generateDone = _logger.progress('Bootstrapping');
