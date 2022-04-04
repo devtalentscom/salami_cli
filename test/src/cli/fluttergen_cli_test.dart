@@ -5,7 +5,7 @@ void main() {
   group('Fluttergen', () {
     group('.installed', () {
       test('returns true when fluttergen is installed', () {
-        expectLater(Fluttergen.installed(), completion(false));
+        expectLater(Fluttergen.installed(), completion(true));
       });
     });
 

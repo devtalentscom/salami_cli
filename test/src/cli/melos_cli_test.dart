@@ -5,7 +5,7 @@ void main() {
   group('Melos', () {
     group('.installed', () {
       test('returns true when melos is installed', () {
-        expectLater(Melos.installed(), completion(false));
+        expectLater(Melos.installed(), completion(true));
       });
     });
 
