@@ -10,8 +10,6 @@ final _templates = [
   SalamiPageTemplate(),
 ];
 
-final _defaultTemplate = _templates.first;
-
 /// {@template spit_command}
 /// `salami spit` command creates new component like page/package.
 /// {@endtemplate}
@@ -70,7 +68,6 @@ class SpitCommand extends Command<int> {
 
     return _templates.firstWhere(
       (element) => element.name == templateName.first.toLowerCase(),
-      orElse: () => _defaultTemplate,
     );
   }
 
