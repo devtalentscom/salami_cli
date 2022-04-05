@@ -2,9 +2,9 @@ import 'package:salami_cli/src/cli/cli.dart';
 import 'package:test/test.dart';
 
 void main() {
-  void deactivate() {
-    Melos.activate();
-    Melos.deactivate();
+  Future<void> deactivate() async {
+    await Melos.activate();
+    await Melos.deactivate();
   }
 
   tearDownAll(deactivate);
@@ -18,6 +18,7 @@ void main() {
     });
 
     group('.activate', () {
+      setUp(deactivate);
       test('completes normally', () async {
         await expectLater(Melos.activate(), completes);
       });

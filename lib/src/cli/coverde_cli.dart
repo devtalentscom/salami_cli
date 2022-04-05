@@ -19,4 +19,13 @@ class Coverde {
       ['pub', 'global', 'activate', 'coverde'],
     );
   }
+
+  /// Uninstall coverde (`dart pub global deactivate coverd`).
+  @visibleForTesting
+  static Future<void> deactivate() async {
+    await _Cmd.run(
+      'dart',
+      ['pub', 'global', 'deactivate', 'coverde'],
+    );
+  }
 }

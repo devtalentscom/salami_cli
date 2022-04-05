@@ -6,7 +6,6 @@ import 'package:args/args.dart';
 import 'package:mason/mason.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:path/path.dart' as p;
-import 'package:salami_cli/src/cli/cli.dart';
 import 'package:salami_cli/src/commands/commands.dart';
 import 'package:salami_cli/src/commands/create/templates/templates.dart';
 import 'package:test/test.dart';
@@ -29,11 +28,6 @@ const expectedUsage = [
       '\n'
       'Run "salami help" to see global options.'
 ];
-
-void deactivate() {
-  Melos.activate();
-  Melos.deactivate();
-}
 
 class MockArgResults extends Mock implements ArgResults {}
 
@@ -59,7 +53,6 @@ void main() {
     setUpAll(() {
       registerFallbackValue(FakeDirectoryGeneratorTarget());
       registerFallbackValue(FakeLogger());
-      deactivate();
     });
 
     setUp(() {
@@ -158,10 +151,6 @@ void main() {
         );
         verify(
           () => logger.progress('Running "flutter packages get" in .tmp'),
-        ).called(1);
-
-        verify(
-          () => logger.progress('Running "dart pub global activate melos"'),
         ).called(1);
 
         expect(

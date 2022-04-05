@@ -25,7 +25,8 @@ class Melos {
     );
   }
 
-  /// Install melos (`dart pub global activate melos`).
+  /// Uninstall melos (`dart pub global deactivate melos`).
+  @visibleForTesting
   static Future<void> deactivate() async {
     await _Cmd.run(
       'dart',
