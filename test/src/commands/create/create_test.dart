@@ -6,6 +6,7 @@ import 'package:args/args.dart';
 import 'package:mason/mason.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:path/path.dart' as p;
+import 'package:salami_cli/src/cli/cli.dart';
 import 'package:salami_cli/src/commands/commands.dart';
 import 'package:salami_cli/src/commands/create/templates/templates.dart';
 import 'package:test/test.dart';
@@ -28,6 +29,11 @@ const expectedUsage = [
       '\n'
       'Run "salami help" to see global options.'
 ];
+
+void deactivate() {
+  Melos.activate();
+  Melos.deactivate();
+}
 
 class MockArgResults extends Mock implements ArgResults {}
 
@@ -53,6 +59,7 @@ void main() {
     setUpAll(() {
       registerFallbackValue(FakeDirectoryGeneratorTarget());
       registerFallbackValue(FakeLogger());
+      deactivate();
     });
 
     setUp(() {
@@ -119,49 +126,56 @@ void main() {
       }),
     );
 
-    test('completes successfully with correct output', () async {
-      final argResults = MockArgResults();
-      final generator = MockMasonGenerator();
-      final command = CreateCommand(
-        logger: logger,
-        generator: (_) async => generator,
-      )..argResultOverrides = argResults;
-      when(() => argResults['project-name'] as String?).thenReturn('my_app');
-      when(() => argResults.rest).thenReturn(['.tmp']);
-      when(() => generator.id).thenReturn('generator_id');
-      when(
-        () => generator.generate(
-          any(),
-          vars: any(named: 'vars'),
-          logger: any(named: 'logger'),
-        ),
-      ).thenAnswer((_) async {
-        File(p.join('.tmp', 'pubspec.yaml')).writeAsStringSync(pubspec);
-        return generatedFiles;
-      });
-      final result = await command.run();
-      expect(result, equals(ExitCode.success.code));
-      verify(() => logger.progress('Bootstrapping')).called(1);
-      expect(
-        progressLogs.first,
-        equals('Generated ${generatedFiles.length} file(s)'),
-      );
-      verify(
-        () => logger.progress('Running "flutter packages get" in .tmp'),
-      ).called(1);
+    test(
+      'completes successfully with correct output',
+      () async {
+        final argResults = MockArgResults();
+        final generator = MockMasonGenerator();
+        final command = CreateCommand(
+          logger: logger,
+          generator: (_) async => generator,
+        )..argResultOverrides = argResults;
+        when(() => argResults['project-name'] as String?).thenReturn('my_app');
+        when(() => argResults.rest).thenReturn(['.tmp']);
+        when(() => generator.id).thenReturn('generator_id');
+        when(
+          () => generator.generate(
+            any(),
+            vars: any(named: 'vars'),
+            logger: any(named: 'logger'),
+          ),
+        ).thenAnswer((_) async {
+          File(p.join('.tmp', 'pubspec.yaml')).writeAsStringSync(pubspec);
+          return generatedFiles;
+        });
 
-      expect(
-        progressLogs.elementAt(1),
-        equals('Coverde activated'),
-      );
+        final result = await command.run();
+        expect(result, equals(ExitCode.success.code));
+        verify(() => logger.progress('Bootstrapping')).called(1);
+        expect(
+          progressLogs.first,
+          equals('Generated ${generatedFiles.length} file(s)'),
+        );
+        verify(
+          () => logger.progress('Running "flutter packages get" in .tmp'),
+        ).called(1);
 
-      expect(
-        progressLogs.elementAt(2),
-        equals('Melos activated'),
-      );
+        verify(
+          () => logger.progress('Running "dart pub global activate melos"'),
+        ).called(1);
 
-      verify(() => logger.alert('Created a Salami App!')).called(1);
-      /* verify(
+        expect(
+          progressLogs.elementAt(1),
+          equals('Coverde activated'),
+        );
+
+        expect(
+          progressLogs.elementAt(2),
+          equals('Melos activated'),
+        );
+
+        verify(() => logger.alert('Created a Salami App!')).called(1);
+        /* verify(
         () => generator.generate(
           any(
             that: isA<DirectoryGeneratorTarget>().having(
@@ -176,7 +190,9 @@ void main() {
           logger: logger,
         ),
       ).called(1); */
-    });
+      },
+      timeout: const Timeout(Duration(minutes: 3)),
+    );
 
     group('--template', () {
 /*       group('invalid template name', () {

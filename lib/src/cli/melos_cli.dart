@@ -24,4 +24,12 @@ class Melos {
       ['pub', 'global', 'activate', 'melos'],
     );
   }
+
+  /// Install melos (`dart pub global activate melos`).
+  static Future<void> deactivate() async {
+    await _Cmd.run(
+      'dart',
+      ['pub', 'global', 'deactivate', 'melos'],
+    );
+  }
 }
