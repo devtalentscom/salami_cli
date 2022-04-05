@@ -28,6 +28,9 @@ jobs:
       - name: Install Dependencies
         run: |
           flutter pub get
+          dart pub global activate coverde
+          dart pub global activate melos
+          dart pub global activate flutter_gen
           dart pub global deactivate coverde
           dart pub global deactivate melos
           dart pub global deactivate flutter_gen
