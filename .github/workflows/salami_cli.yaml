@@ -51,6 +51,9 @@ jobs:
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
 
+      - name: Coverde Check
+        run: coverde check 100
+
   e2e:
     runs-on: ubuntu-latest
 
