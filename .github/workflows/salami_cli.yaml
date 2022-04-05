@@ -26,7 +26,11 @@ jobs:
       - uses: subosito/flutter-action@v1.5.3
 
       - name: Install Dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          dart pub global deactivate coverde
+          dart pub global deactivate melos
+          dart pub global deactivate flutter_gen
 
       - name: Format
         run: flutter format --set-exit-if-changed .
