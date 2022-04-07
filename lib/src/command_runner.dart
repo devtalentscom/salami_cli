@@ -5,7 +5,7 @@ import 'package:salami_cli/src/commands/commands.dart';
 import 'package:salami_cli/src/version.dart';
 
 /// {@template salami_command_runner}
-/// A [CommandRunner] for the Very Good CLI.
+/// A [CommandRunner] for the Salami CLI.
 /// {@endtemplate}
 class SalamiCommandRunner extends CommandRunner<int> {
   /// {@macro salami_command_runner}

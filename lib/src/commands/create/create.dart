@@ -18,7 +18,7 @@ final _defaultTemplate = _templates.first;
 typedef GeneratorBuilder = Future<MasonGenerator> Function(MasonBundle);
 
 /// {@template create_command}
-/// `salami create` command creates a new very good flutter app.
+/// `salami create` command creates a new salami flutter app.
 /// {@endtemplate}
 class CreateCommand extends Command<int> {
   /// {@macro create_command}
