@@ -26,7 +26,6 @@ const expectedUsage = [
       'Usage: salami spit [arguments]\n'
       '-h, --help    Print this usage information.\n'
       '-n, --name    Name of created page\n'
-      '              (defaults to "salami")\n'
       '\n'
       'Run "salami help" to see global options.'
 ];
@@ -65,6 +64,9 @@ void main() {
           if (_ != null) progressLogs.add(_);
         },
       );
+      when(
+        () => logger.prompt(any(), defaultValue: 'salami'),
+      ).thenAnswer((invocation) => 'salami');
     });
 
     test(
@@ -90,8 +92,10 @@ void main() {
     test(
       'throws UsageException when template name is missing',
       withRunner((commandRunner, logger, printLogs) async {
-        const expectedErrorMessage =
-            'No option specified for the template name.';
+        const expectedErrorMessage = '''
+        No option specified for the template name.
+        Please use one of existing templates:
+        page - creates new page with cubit''';
         final result = await commandRunner.run(['spit']);
         expect(result, equals(ExitCode.usage.code));
         verify(() => logger.err(expectedErrorMessage)).called(1);
@@ -121,7 +125,39 @@ void main() {
       }),
     );
 
-    test('completes successfully with correct output', () async {
+    test('completes successfully with correct output without name provided',
+        () async {
+      final argResults = MockArgResults();
+      final generator = MockMasonGenerator();
+
+      final command = SpitCommand(
+        logger: logger,
+        generator: (_) async => generator,
+      )..argResultOverrides = argResults;
+      when(() => argResults.rest).thenReturn(['page']);
+      when(() => generator.id).thenReturn('generator_id');
+      when(
+        () => generator.generate(
+          any(),
+          vars: any(named: 'vars'),
+          logger: any(named: 'logger'),
+        ),
+      ).thenAnswer((_) async {
+        return generatedFiles;
+      });
+      final result = await command.run();
+      expect(result, equals(ExitCode.success.code));
+      verify(() => logger.progress('Bootstrapping')).called(1);
+      expect(
+        progressLogs.first,
+        equals('Generated ${generatedFiles.length} file(s)'),
+      );
+
+      verify(() => logger.alert('Created a Salami Page!')).called(1);
+    });
+
+    test('completes successfully with correct output witht name provided',
+        () async {
       final argResults = MockArgResults();
       final generator = MockMasonGenerator();
       final command = SpitCommand(
@@ -129,6 +165,7 @@ void main() {
         generator: (_) async => generator,
       )..argResultOverrides = argResults;
       when(() => argResults.rest).thenReturn(['page']);
+      when(() => argResults['name'] as String).thenReturn('salami');
       when(() => generator.id).thenReturn('generator_id');
       when(
         () => generator.generate(

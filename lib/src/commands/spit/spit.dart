@@ -24,7 +24,6 @@ class SpitCommand extends Command<int> {
       'name',
       abbr: 'n',
       help: 'Name of created page',
-      defaultsTo: 'salami',
     );
   }
 
@@ -46,8 +45,8 @@ class SpitCommand extends Command<int> {
   @override
   Future<int> run() async {
     final outputDirectory = Directory('.');
-    final name = (_argResults['name'] as String?) ?? 'salami';
     final template = _template;
+    final name = _name;
     final generateDone = _logger.progress('Bootstrapping');
     final generator = await _generate(template.bundle);
     final fileCount = await generator.generate(
@@ -71,10 +70,21 @@ class SpitCommand extends Command<int> {
     );
   }
 
+  String get _name {
+    var name = _argResults['name'] as String?;
+    return name ??= _logger.prompt(
+      'Please pass a name for a page:',
+      defaultValue: 'salami',
+    );
+  }
+
   void _validateTemplateArg(List<String> args) {
     if (args.isEmpty) {
       throw UsageException(
-        'No option specified for the template name.',
+        '''
+        No option specified for the template name.
+        Please use one of existing templates:
+        page - creates new page with cubit''',
         usage,
       );
     }
