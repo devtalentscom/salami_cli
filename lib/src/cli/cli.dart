@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:universal_io/io.dart';
 

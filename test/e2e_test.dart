@@ -39,7 +39,7 @@ void main() {
         final directory = Directory(path.join('.tmp', 'salami_core'));
 
         final result = await commandRunner.run(
-          ['create', directory.path, '-t', 'core'],
+          ['create', directory.path],
         );
         expect(result, equals(ExitCode.success.code));
 

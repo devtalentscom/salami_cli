@@ -19,4 +19,13 @@ class Fluttergen {
       ['pub', 'global', 'activate', 'flutter_gen'],
     );
   }
+
+  /// Uninstall fluttergen (`dart pub global deactivate fluttergen`).
+  @visibleForTesting
+  static Future<void> deactivate() async {
+    await _Cmd.run(
+      'dart',
+      ['pub', 'global', 'deactivate', 'flutter_gen'],
+    );
+  }
 }
