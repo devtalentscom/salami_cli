@@ -13,7 +13,7 @@ A Salami Command Line Interface for Dart.
 ```sh
 dart pub global activate salami_cli
 
-salami create .
+salami --help
 ```
 
 [coverage_badge]: https://raw.githubusercontent.com/VeryGoodOpenSource/very_good_cli/main/coverage_badge.svg
