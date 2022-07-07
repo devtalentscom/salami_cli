@@ -53,7 +53,7 @@ class SpitCommand extends Command<int> {
       DirectoryGeneratorTarget(outputDirectory),
       vars: <String, dynamic>{'name': name},
     );
-    generateDone('Generated ${fileCount.length} file(s)');
+    generateDone.complete('Generated ${fileCount.length} file(s)');
 
     await template.onGenerateComplete(_logger, outputDirectory);
 

@@ -8,6 +8,8 @@ class MockLogger extends Mock implements Logger {}
 
 class FakeLogger extends Fake implements Logger {}
 
+class MockProgress extends Mock implements Progress {}
+
 void main() {
   Future<void> deactivate() async {
     await Melos.activate();
@@ -21,6 +23,7 @@ void main() {
   group('post generate actions', () {
     late List<String> progressLogs;
     late Logger logger;
+    late Progress progress;
 
     setUpAll(() {
       registerFallbackValue(FakeLogger());
@@ -29,11 +32,13 @@ void main() {
     setUp(() {
       progressLogs = <String>[];
       logger = MockLogger();
-      when(() => logger.progress(any())).thenReturn(
-        ([_]) {
-          if (_ != null) progressLogs.add(_);
-        },
-      );
+      progress = MockProgress();
+
+      when(() => progress.complete(any())).thenAnswer((_) {
+        final message = _.positionalArguments.elementAt(0) as String?;
+        if (message != null) progressLogs.add(message);
+      });
+      when(() => logger.progress(any())).thenReturn(progress);
     });
 
     group('without activated cli tools', () {

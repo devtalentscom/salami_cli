@@ -14,7 +14,7 @@ Future<void> installFlutterPackages(
       'Running "flutter packages get" in ${outputDir.path}',
     );
     await Flutter.packagesGet(cwd: outputDir.path, recursive: recursive);
-    installDependenciesDone();
+    installDependenciesDone.complete();
   }
 }
 
@@ -30,7 +30,7 @@ Future<void> applyDartFixes(
       'Running "dart fix --apply" in ${outputDir.path}',
     );
     await Dart.applyFixes(cwd: outputDir.path, recursive: recursive);
-    applyFixesDone();
+    applyFixesDone.complete();
   }
 }
 
@@ -48,7 +48,7 @@ Future<void> installMelos(
     );
     await Melos.activate();
   }
-  installMelosDone('Melos activated');
+  installMelosDone.complete('Melos activated');
 }
 
 /// Runs `dart pub global activate coverde`.
@@ -65,7 +65,7 @@ Future<void> installCoverde(
     );
     await Coverde.activate();
   }
-  installCoverdeDone('Coverde activated');
+  installCoverdeDone.complete('Coverde activated');
 }
 
 /// Runs `dart pub global activate flutter_gen`.
@@ -82,5 +82,5 @@ Future<void> installFluttergen(
     );
     await Fluttergen.activate();
   }
-  installFluttergenDone('Fluttergen activated');
+  installFluttergenDone.complete('Fluttergen activated');
 }
