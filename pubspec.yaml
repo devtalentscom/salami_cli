@@ -1,7 +1,7 @@
 name: salami_cli
 description: A Salami Command Line Interface for Dart created by DevTalens
 version: 0.0.1-dev.4
-homepage: https://github.com/HeyDevTalents
+homepage: https://devtalents.com/
 
 environment:
   sdk: ">=2.13.0 <3.0.0"
