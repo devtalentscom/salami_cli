@@ -8,12 +8,15 @@ import 'package:universal_io/io.dart';
 
 class MockLogger extends Mock implements Logger {}
 
+class MockProgress extends Mock implements Progress {}
+
 void main() {
   group(
     'E2E',
     () {
       late Logger logger;
       late SalamiCommandRunner commandRunner;
+      late Progress progress;
 
       void _removeTemporaryFiles() {
         try {
@@ -26,9 +29,9 @@ void main() {
 
       setUp(() {
         logger = MockLogger();
+        progress = MockProgress();
 
-        logger = MockLogger();
-        when(() => logger.progress(any())).thenReturn(([_]) {});
+        when(() => logger.progress(any())).thenReturn(progress);
 
         commandRunner = SalamiCommandRunner(
           logger: logger,

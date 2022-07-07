@@ -76,7 +76,7 @@ class CreateCommand extends Command<int> {
       DirectoryGeneratorTarget(outputDirectory),
       //vars: <String, dynamic>{'project_name': projectName},
     );
-    generateDone('Generated ${fileCount.length} file(s)');
+    generateDone.complete('Generated ${fileCount.length} file(s)');
 
     await template.onGenerateComplete(_logger, outputDirectory);
 

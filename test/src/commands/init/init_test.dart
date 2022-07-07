@@ -36,6 +36,8 @@ class MockArgResults extends Mock implements ArgResults {}
 
 class MockLogger extends Mock implements Logger {}
 
+class MockProgress extends Mock implements Progress {}
+
 class FakeDirectoryGeneratorTarget extends Fake
     implements DirectoryGeneratorTarget {}
 
@@ -45,6 +47,7 @@ void main() {
   group('init', () {
     late List<String> progressLogs;
     late Logger logger;
+    late Progress progress;
 
     setUpAll(() {
       registerFallbackValue(FakeDirectoryGeneratorTarget());
@@ -54,11 +57,13 @@ void main() {
     setUp(() {
       progressLogs = <String>[];
       logger = MockLogger();
-      when(() => logger.progress(any())).thenReturn(
-        ([_]) {
-          if (_ != null) progressLogs.add(_);
-        },
-      );
+      progress = MockProgress();
+
+      when(() => progress.complete(any())).thenAnswer((_) {
+        final message = _.positionalArguments.elementAt(0) as String?;
+        if (message != null) progressLogs.add(message);
+      });
+      when(() => logger.progress(any())).thenReturn(progress);
     });
 
     test(

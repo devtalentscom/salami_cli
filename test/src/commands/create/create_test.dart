@@ -33,6 +33,8 @@ class MockArgResults extends Mock implements ArgResults {}
 
 class MockLogger extends Mock implements Logger {}
 
+class MockProgress extends Mock implements Progress {}
+
 class MockMasonGenerator extends Mock implements MasonGenerator {}
 
 class FakeDirectoryGeneratorTarget extends Fake
@@ -44,6 +46,7 @@ void main() {
   group('create', () {
     late List<String> progressLogs;
     late Logger logger;
+    late Progress progress;
 
     final generatedFiles = List.filled(
       120,
@@ -58,11 +61,13 @@ void main() {
     setUp(() {
       progressLogs = <String>[];
       logger = MockLogger();
-      when(() => logger.progress(any())).thenReturn(
-        ([_]) {
-          if (_ != null) progressLogs.add(_);
-        },
-      );
+      progress = MockProgress();
+
+      when(() => progress.complete(any())).thenAnswer((_) {
+        final message = _.positionalArguments.elementAt(0) as String?;
+        if (message != null) progressLogs.add(message);
+      });
+      when(() => logger.progress(any())).thenReturn(progress);
     });
 
     test(

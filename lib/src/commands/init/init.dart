@@ -61,7 +61,7 @@ class InitCommand extends Command<int> {
       await installFluttergen(_logger);
     }
 
-    installing('Setup finished');
+    installing.complete('Setup finished');
     _logger
       ..info('\n')
       ..alert("You're ready to go! ⚡")
