@@ -1,12 +1,47 @@
 # Salami CLI
-
-Developed with 💙 by [DevTalents](dev_talents_link)
-
 ![coverage][coverage_badge]
 [![License: MIT][license]](license_link)
 [![style: very_good_analysis_link][badge]][badge_link]
 
 A Salami Command Line Interface for Dart.
+<br><br>
+
+
+<div style="text-align:center">
+  <img src="./doc/assets/salami_logo.svg" />
+</div>
+<br>
+
+
+## What is salami_cli 🤔
+
+Salami is an open source command line tool that generates supercharged flutter project from template called salami.
+The motivation behind creating salami_cli comes from the need of a tool that accelerates process of configuring and maintaining flutter application on every step of app development.
+
+<br>
+<div style="text-align:center">
+  <img src="./doc/assets/demo.gif" />
+</div>
+<br>
+
+
+## What does salami provides?
+
+🦄 VGV inspired project structure
+
+🛫 First launch callback 
+
+🧪 Configured melos for running test across all packages
+
+🌐 Already configured l10n to work with translations
+
+🎨 Theme package for defining app look
+
+😋 Flavors for building app in development, staging and production
+
+🔔 Firebase messaging notification manager
+
+🔌 Extension for diffrent data types (more to come)
 
 ## Installing
 
