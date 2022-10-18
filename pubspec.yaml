@@ -10,14 +10,14 @@ dependencies:
   args: ^2.3.1
   glob: ^2.1.0
   lcov_parser: ^0.1.2
-  mason: ">=0.1.0-dev.26 <0.1.0-dev.27"
-  mason_logger: ">=0.1.0-dev.13 <0.1.0-dev.14"
+  mason: ^0.1.0-dev.34
+  mason_logger: ^0.2.0
   meta: ^1.8.0
   path: ^1.8.2
   pub_updater: ^0.2.2
   universal_io: ^2.0.4
   usage: ^4.1.0
-  very_good_analysis: ^3.0.1
+  very_good_analysis: ^3.1.0
   very_good_test_runner: ^0.1.2
 
 dev_dependencies:
